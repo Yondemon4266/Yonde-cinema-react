@@ -74,7 +74,7 @@ const Card = ({ movie }) => {
     return genreArray.map((genre) => <li key={genre}>{genre}</li>);
   };
 
-  const addStorage = () => {
+  const addStorage = (id) => {
     let storedData = window.localStorage.movies
       ? window.localStorage.movies.split(",")
       : [];
@@ -126,7 +126,7 @@ const Card = ({ movie }) => {
         <div
           className="btn"
           onClick={() => {
-            deleteStorage();
+            deleteStorage(movie.id);
             window.location.reload();
           }}
         >
