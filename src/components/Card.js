@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Card = ({ movie }) => {
+
+  const [isDeleted, setIsDeleted] = useState(false);
   const dateFormater = (date) => {
     let [yy, mm, dd] = date.split("-");
     return [dd, mm, yy].join("/");
@@ -85,12 +87,17 @@ const Card = ({ movie }) => {
     }
   };
 
-  const deleteStorage = () => {
+  const deleteStorage = (id) => {
     let storedData = window.localStorage.movies.split(",");
     let newData = storedData.filter((id) => id != movie.id);
 
     window.localStorage.movies = newData;
+    setIsDeleted(true);
   };
+  
+  if (isDeleted) {
+    return null;
+  }
 
   return (
     <div className="card">
@@ -127,7 +134,6 @@ const Card = ({ movie }) => {
           className="btn"
           onClick={() => {
             deleteStorage(movie.id);
-            window.location.reload();
           }}
         >
           Supprimer de la liste
